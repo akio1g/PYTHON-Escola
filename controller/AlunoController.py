@@ -5,21 +5,21 @@ ALUNOS: List[Aluno] = []
 
 
 def adicionarAluno(aluno: Aluno) -> None:
-    if(any(ALUNOS)):
+    contador: int = 0
+    if not any(ALUNOS):
+        ALUNOS.append(aluno)
+        print('Aluno cadastrado!\n')
+    else:
         for x in ALUNOS:
             if (ALUNOS[-1].ra == x.ra):
                 ALUNOS.append(aluno)
                 print('Aluno cadastrado!\n')
                 break;
             if (x.ra == aluno.ra):
-                x = aluno
+                ALUNOS[contador] = aluno
                 print('Aluno Alterado')
                 break
-    else:
-        ALUNOS.append(aluno)
-        print('Aluno cadastrado!\n')
-
-
+            contador += 1
 
 
 def excluirAlunoPorRA(ra: str) -> None:
@@ -36,8 +36,10 @@ def procurarPorRA(ra: str) -> Aluno:
     for x in ALUNOS:
         if (x.ra == ra):
             a: Aluno = x
+            break
         if(ALUNOS[-1].ra == x.ra):
             print('Aluno não encontrado\n')
+    return a
 
 
 def listar() -> str:
